@@ -13,13 +13,13 @@ Internal source repository for designing, pitching and delivering Joule and SAP 
 | `02-reference/` | BTP/SAP services catalogue; identity, security and compliance baseline | Everyone; security architects |
 | `03-scenarios/` | Scenario library (241 scenarios) by function and industry, with prioritisation | Pre-sales, consultants |
 | `04-multi-ai/` | Generative AI Hub with non-SAP models, MCP/agent interoperability, selection guide | AI architects |
-| `05-templates/` | One-pager, readiness checklist, estimation worksheet, test-question bank, business case, ADR, demo script | Delivery teams |
+| `05-templates/` | One-pager, readiness checklist, estimation worksheet, test-question bank, business case, ADR, demo script, tool register entry, system card | Delivery teams |
 | `06-governance/` | Operating model, risk tiers, evaluation, cost control | Leadership, architects |
 | **`07-sdlc-guide/`** | **Gap analysis; SDLC playbook with gates; engineering standards; secure-by-design addendum; 90-day lead runbook; VERIFY register** | **Development leads, architects** |
 | **`08-value-cases/`** | **Evidence register with quality tiers; runnable business-case model (`value_model.py`); use-case value cards; objection-handling guide** | **Sales, engagement leads, finance** |
 | **`09-forecasting-shortage/`** | **Knowledge graph, MCP and AI-concept design for demand forecasting and shortage prediction** | **Architects, supply-chain leads** |
-| **`10-client-confidence/`** | **How graphs, MCP, evaluation, staged autonomy and commercial structure build (and evidence) client confidence** | **Engagement leads, CISOs' counterparts** |
-| `10-confidence-by-design/` | **Earlier parallel draft** on the same topic (seven client doubts mapped to evidence artefacts; no numeric claims). Not yet reconciled with `10-client-confidence/`; merge or retire after review | Engagement leads |
+| **`10-client-confidence/`** | **`01`: what clients distrust, what the evidence supports for graphs/MCP/other techniques, SAP trust artefacts, scorecard. `02`: Trust Stack architecture, Trust Pack artefacts, confidence ladder, dev-lead checklist. `03`: per-scenario playbook (when a graph, semantic layer or MCP earns its place), worked AP example, tool register example, 30-minute confidence demo, talk track** | **Engagement leads, architects, security counterparts** |
+| `_archive/` | Superseded drafts kept for reference (`10-confidence-by-design`, merged into `10-client-confidence/` on 2026-11-23) | n/a |
 | `_research/` | Source research (read-only evidence files with URLs, dates, confidence). Each figure in chapters 08 to 10 traces here | Everyone |
 
 ## How to use

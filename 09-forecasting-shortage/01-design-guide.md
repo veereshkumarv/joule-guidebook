@@ -281,3 +281,15 @@ Directly relevant IDs from the library (verified to exist 2026-11-23):
 | Related (traceability) | SCM-015/016, IND-MFG-07 |
 
 Guidebook Part 3 use cases P1 (disruption insight) and P2 (inventory and demand planning) are the client-facing summaries of the same capabilities. Use template T1 per scenario and add the measurement framework in section 8 to each one-pager.
+
+---
+
+## 13. Additions to the maturity ladder and metrics (from the evidence review)
+
+Section 0 records what the research changed. These are the resulting edits to sections 8 and 9.
+
+- **Stage 0 (Baseline) adds:** a fit-gap of SAP-delivered IBP capabilities (demand sensing, Joule scenario planning, Exception Management Agent) against the client's pain points, plus the licensing and edition check (V1, V2, V7, V17). Custom build covers only the residual gap.
+- **Stage 2 (Detect) adds:** the four-arm bake-off from `10-client-confidence/01-confidence-architecture.md` section 3 on the client's own shortage questions, reporting accuracy, abstention and tokens per answer separately. Choose a graph store only if graph traversal wins on multi-hop questions; impact propagation over BOM and PO data can also be computed with recursive SQL/CDS or IBP supply-network data.
+- **Stage 3 (Improve forecast) adds:** challenger models must beat the incumbent IBP/statistical forecast on a held-out period at the planning level and lag; switch off models per segment where FVA is zero or negative.
+- **Metrics add:** alert precision, planner action rate, and forecast stability between runs (a demand-planning study found ensembles improve stability without hurting accuracy). No opened source quantified alert fatigue, bullwhip effects from AI-driven re-planning, data-latency failures, or a failed forecasting-AI project, so the risks in section 11 rest on engineering judgement until the client's own pilot data answers them.
+- **Evidence gaps to keep visible:** FVA has no empirical study in the evidence pack; M4/M5 primary results were not read; no vendor case with numbers was found for Resilinc, Interos or Everstream; HANA Cloud knowledge graph engine limits beyond "single compute node" are unverified.

@@ -17,13 +17,15 @@ Confidence cannot be asserted; it has to be produced by evidence the client can 
 | "Vendors overpromise" | Gartner: only about 130 of thousands of agentic vendors are real ("agent washing"). | Show working, measured behaviour on the client's own data. |
 | "Replacing people backfires" | Klarna rehired human agents after quality dropped; CBA reversed 45 job cuts after its voice-bot raised call volumes. | Position AI as augmentation with human fallback; avoid headcount-reduction narratives. |
 
+**Use this table as a workshop tool.** In the first client session, list these concerns (plus any of their own) and ask each stakeholder to rank them. The ranking decides which proof artefacts are built first (section 11 maps gap to lead technique; `02-trust-stack-and-trust-pack.md` lists the artefacts).
+
 Honest framing for sponsors: the sceptical headlines are weaker than they look (e.g. MIT's "95%" rests on 52 interviews and a six-month, deployment-with-KPIs definition), but the direction across independent sources is consistent. Show the client you have read both sides.
 
 ### 1a. How strong is the evidence for the practices in this chapter?
 
 Be candid with clients about this; it is itself a confidence builder.
 
-- **Where trust is low is well documented.** KPMG/University of Melbourne (48,340 people, 47 countries, 2025): 46% willing to trust AI systems. Gartner (360 IT application leaders, reported by The Register, Oct 2025): only 19% had high trust in vendors' ability to protect against hallucinations, 74% saw agents as a new attack vector. BCG 2026: more than half still have privacy and cybersecurity concerns; 41% worry about lack of control or understanding of AI decisions.
+- **Where trust is low is well documented.** KPMG/University of Melbourne (48,340 people, 47 countries, 2025): 46% willing to trust AI systems. Gartner (survey of IT application leaders, reported by The Register, Oct 2025): only 19% had high trust in vendors' ability to protect against hallucinations, 74% saw agents as a new attack vector. BCG 2026: more than half still have privacy and cybersecurity concerns; 41% worry about lack of control or understanding of AI decisions.
 - **Which interventions raise trust or adoption is not well documented.** The research found **no controlled or quasi-experimental enterprise study** showing that explanations, citations, staged rollout, governance programmes or training raise adoption or ROI. The supporting evidence is self-reported correlation (e.g. BCG: positive sentiment 15% to 55% with strong leadership support), stated intent (Edelman, US: 59% say transparency about inaccuracies would raise their enthusiasm), and small lab studies (explanations reduce over-reliance only when they make verification cheaper).
 - **Grounding does not remove errors.** The one independent test of RAG-grounded commercial tools (legal research, 2024 versions) found they still hallucinated 17% to 33% of the time, against vendor claims of "hallucination-free". No equivalent independent test exists for ERP, finance or procurement copilots, so **we must measure it on the client's own data** rather than cite it.
 - **Therefore:** treat every practice below as a **design hypothesis that we test and show results for in the pilot**, not as a proven lever. The commitment to the client is "we will measure and show you", not "this technique makes AI trustworthy".
@@ -56,7 +58,16 @@ Each technology below is justified by which property it strengthens and what evi
 - **Citations and graph paths raise acceptance, not necessarily correctness.** Explanations made users accept AI recommendations whether or not they were correct (Bansal et al.), reduced over-reliance only when they made checking cheap (Vasconcelos et al.), and an audit of generative search engines found only 74.5% of citations supported their sentence. No source measured trust effects of graph paths specifically. So design for **cheap verification** (one click to the source record, a short path, a number the user can recompute) and sample-audit citation correctness.
 - A graph built on bad master data produces confident, wrong paths. Data-quality dashboards must ship with it.
 
-**Confidence-building practice: run a visible bake-off.** In the pilot, evaluate the same 100-question set three ways: (a) LLM with direct API tools only, (b) plus vector RAG, (c) plus knowledge graph. Report **accuracy, abstention rate and tokens per answer separately** (an "I don't know" is not a correct answer), per question class. The independent evidence predicts the graph helps on multi-hop dependency, impact and traceability questions and not on single lookups; test that prediction on the client's data, keep the graph where it wins and drop it where it doesn't. A client that watched you test your own assumption trusts the result more than one that was sold a technique.
+**Design hypothesis: a governed semantic layer (business glossary mapped to SAP objects) is the lowest-cost way to get most of the graph's benefit.** The only enterprise-data result found (16% to 54%, above) is a semantic-layer setting, not a multi-hop traversal one, which suggests the mechanism that matters may be *shared, governed meaning* rather than graph traversal as such. This is an inference from one vendor-authored preprint, so treat it as something to test. Practical MVP, before any multi-domain ontology:
+- **Glossary as data:** 50 to 150 core business terms for the pilot domain (`Metric`, `Dimension`, `BusinessObject`, `Synonym`), each mapped to a source CDS view or BDC data product and an owner.
+- **Resolve, then query:** the agent resolves the user's words to glossary terms, asks when ambiguous, calls a governed query tool with resolved identifiers, then narrates. The model never writes free-form SQL against raw tables.
+- **Show the interpretation:** "Interpreted *net revenue* as `NetRevenue_Recognised` (owner: Group Controlling), company codes 1010 and 1020, fiscal Q3." It lets the user catch a wrong reading in seconds, which is the cheap-verification property the research says matters.
+- **Policy as metadata:** classification and ownership on terms and entities lets the tool layer enforce rules consistently and explain refusals. Enforcement stays in the tools using the user's identity; the graph supplies metadata and never a bypass.
+- **Lineage and freshness:** each answer can carry source object, extraction time and owner, and stale data is flagged or refused. This answers an auditor's "where did this number come from?".
+- **One vocabulary across assistants:** Joule, SAC and a third-party copilot use identical definitions, so two tools do not give two answers to one question.
+- **When not to build it:** single-object, single-system questions already answered by a CDS view or a standard Joule capability; no owner for glossary maintenance; or when data quality, not meaning, is the problem.
+
+**Confidence-building practice: run a visible bake-off.** In the pilot, evaluate the same 100-question set four ways: (a) LLM with direct API tools only, (b) plus vector RAG, (c) plus the governed semantic layer without graph traversal, (d) plus knowledge-graph traversal. Report **accuracy, abstention rate and tokens per answer separately** (an "I don't know" is not a correct answer), per question class. The independent evidence predicts the graph helps on multi-hop dependency, impact and traceability questions and not on single lookups; test that prediction on the client's data, keep the graph where it wins and drop it where it doesn't. A client that watched you test your own assumption trusts the result more than one that was sold a technique.
 
 ## 4. MCP and the tool layer: what it contributes to confidence
 
@@ -91,6 +102,22 @@ Each technology below is justified by which property it strengthens and what evi
 | **Model routing and small/open models for routine steps** | Valuable | Gartner (Nov 2026, via The Register, medium confidence) says routine steps can run on open-weight models at a fraction of the cost; show the routing policy and its measured quality |
 | **AI inventory, risk tiers, governance board** | Transparent | One register of scenarios, owners, tiers, models, data; aligns to NIST AI RMF and ISO/IEC 42001 |
 | **Kill switch and incident drills** | Contained | A rehearsed shutdown, run in front of the client |
+
+### 5a. SAP's own trust artefacts: cite with attribution, request the paper
+
+Source: `_research/forecasting-kg-mcp-evidence.md` section 3.4 (help.sap.com excerpts and SAP News Center, read 2026-11-23). These are **vendor statements**. Say "SAP states...", ask the account team for the underlying document, and do not extend the wording.
+
+| Artefact | What SAP states (verbatim scope) | What to request / how to use |
+|---|---|---|
+| ISO/IEC 42001 | "ISO/IEC 42001 certification for AI governance has been achieved, covering Joule, SAP AI Core, and SAP AI Launchpad" (one help.sap.com excerpt) | Certificate, certifying body and scope statement; the certificate was not opened |
+| Training use | "Your employee and customer data is never shared with third parties to train AI models" (SuccessFactors Responsible AI page); SAP publicly says it does not share customer data to train or improve LLMs | Contract/DPA clause and each model provider's terms [VERIFY V5] |
+| Prompt routing | Joule Work desktop "routes all AI prompts through SAP AI Core" | Data-flow diagram for the client's edition |
+| Guardrails | AI Core offers content filtering, data masking and document grounding, but the extra modules are on the **extended** plan only; masking entity coverage is limited by profile (test non-English, non-US data) | Confirm plan and cost [V9, V10] |
+| Authorization and audit | Joule Work agents "respect established authorizations" and keep audit trails; agents are "first-class principals" (phased rollout) | Prove with the persona test in the client's tenant; do not rely on the statement |
+| Human approval | Data Management Assistant executes corrections "only after human approval"; the IBP Exception Management Agent proposes mitigations | Confirm GA status per assistant (several were "planned for Q4 2026") |
+| Scoping disclaimers | AI Launchpad: SAP not responsible for model output quality; Batch Release Hub: "Joule is not a decision-making system for GxP-critical actions" | Use to set tier-3 scope honestly |
+
+A client's CISO will notice if you present these as proof. Present them as *claims to be verified in your tenant*, then show the verification.
 
 ## 6. Commercial confidence (risk transfer, not just risk description)
 
@@ -163,3 +190,5 @@ Clients' cost concern is partly about who bears the risk. Structures that make r
 | Accountability and audit | Observability, AI inventory, approval evidence | ISO/IEC 42001 alignment |
 | Low adoption | Shadow mode with the actual users, champions, in-flow feedback | Workflow redesign |
 | Doubts about value | Baseline and control group, kill criteria | Outcome-linked fees |
+
+For how these choices play out per scenario (GL queries, variance explanation, blocked invoices, contracts, HR self-service, developer tooling), with a worked example, a tool register entry, a 30-minute demo and a talk track, see `03-scenario-playbook.md`.

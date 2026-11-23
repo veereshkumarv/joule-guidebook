@@ -97,3 +97,36 @@ Sensitivity: -30% / base / +30% on benefits; +20% on cost.
 5. Show audit/log and role restriction (security pillar)
 6. Show KPI dashboard (value)
 7. Recap and next step
+
+For a client-confidence demo on the client's own data, use the 30-minute version in `10-client-confidence/03-scenario-playbook.md` section 6.
+
+## T8. Tool Register Entry (one per AI-callable capability)
+
+| Field | Content |
+|---|---|
+| Tool, version | Name as the agent sees it; semantic version |
+| Exposed via | MCP server / Studio action / API Management endpoint |
+| Owner | Named person and team |
+| Scenario(s), risk tier | Scenario IDs; tier 1 to 3 |
+| Type, autonomy | read / prepare / execute; A0 to A3 and promotion criteria |
+| Identity | User-propagated (default) or agent identity with justification |
+| Data touched, classification | Business objects; highest classification |
+| Side effects, approval | What changes and who confirms |
+| Rate limit, cost cap | Per user and per day |
+| Description hash | Pinned; any change triggers security review |
+| Last security review, eval set | Date; evaluation set ID and size |
+| Kill switch | Flag or control, owner |
+
+Example in `10-client-confidence/03-scenario-playbook.md` section 5.
+
+## T9. System Card (one page per scenario; version with each release)
+
+- Scenario ID, purpose, owner, risk tier, autonomy level
+- Users and personas; what they can and cannot ask or do
+- Data sources (systems, objects, classification); semantic layer or graph used and its owner
+- Models and providers (from the model register); region; data terms
+- Tools used (links to T8 entries)
+- Current evaluation results by question class, including failing classes and abstention rate
+- Known limits and failure modes; what the assistant will refuse
+- Controls: authorization tests, guardrails, approval, monitoring, kill switch
+- Change history and next review date
