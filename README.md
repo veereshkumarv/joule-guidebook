@@ -19,6 +19,7 @@ Internal source repository for designing, pitching and delivering Joule and SAP 
 | **`08-value-cases/`** | **Evidence register with quality tiers; runnable business-case model (`value_model.py`); use-case value cards; objection-handling guide** | **Sales, engagement leads, finance** |
 | **`09-forecasting-shortage/`** | **Knowledge graph, MCP and AI-concept design for demand forecasting and shortage prediction** | **Architects, supply-chain leads** |
 | **`10-client-confidence/`** | **`01`: what clients distrust, what the evidence supports for graphs/MCP/other techniques, SAP trust artefacts, scorecard. `02`: Trust Stack architecture, Trust Pack artefacts, confidence ladder, dev-lead checklist. `03`: per-scenario playbook (when a graph, semantic layer or MCP earns its place), worked AP example, tool register example, 30-minute confidence demo, talk track** | **Engagement leads, architects, security counterparts** |
+| **`11-knowledge-graph/`** | **General build guide for a knowledge graph on S/4HANA + SAP HANA Cloud (RDF, property graph, vector), ontology, pipeline, tool layer, GraphRAG and other AI usage patterns, authorization, ADRs, client positioning. Draft: product details are VERIFY items** | **Architects, knowledge engineers, engagement leads** |
 | `_archive/` | Superseded drafts kept for reference (`10-confidence-by-design`, merged into `10-client-confidence/` on 2026-11-23) | n/a |
 | `_research/` | Source research (read-only evidence files with URLs, dates, confidence). Each figure in chapters 08 to 10 traces here | Everyone |
 
